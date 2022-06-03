@@ -4,7 +4,8 @@ import xml.dom.minidom
 import json
 
 
-def xmlParse2json(fpIn):
+def xml2json(fpIn):
+    "BiliBili弹幕 XML转JSON(dplayer格式)"
     DIC = {
         'code': '0',
         'data': [],
@@ -50,7 +51,7 @@ def xmlParse2json(fpIn):
 
 
 def main():
-    fi = xmlParse2json(input("文件路径："))
+    fi = xml2json(input("文件路径："))
     f = open(input('新文件保存路径：'), 'w+')
     f.write(fi)
     f.close

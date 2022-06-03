@@ -19,12 +19,14 @@ import zlib
 
 
 def gzip(data):
+    "解压gzip"
     buf = StringIO(data)
     f = gzip.GzipFile(fileobj=buf)
     return f.read()
 
 
 def deflate(data):
+    "解压deflate"
     try:
         return zlib.decompress(data, -zlib.MAX_WBITS)
     except zlib.error:
