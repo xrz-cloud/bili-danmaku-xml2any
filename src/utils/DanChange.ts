@@ -12,6 +12,18 @@ const DIC: DIC = {
   'data': []
 }
 
+type FilterRule = Array<{
+  "id": number,
+  "mid": number,
+  "type": 0 | 1 | 2,
+  "filter": string,
+  "comment": string,
+  "ctime": number,
+  "mtime": number
+}>
+
+const FilterRule: FilterRule = []
+
 export const xml2json = {
   main: (xml: string): string => {
     return JSON.stringify(x2js.xml2js(xml))
@@ -103,5 +115,51 @@ export const xml2ass = {
 export const json2ass = {
   main: (json: object | string, FileName: string, config: object = x2assConfig): string => {
     return xml2ass.main(json2xml.main(json), FileName, config)
+  }
+}
+
+export const Filter = {
+  xml2json: (xml: string): FilterRule => {
+    const _json: { filters: { item: [{ __text: string, _enabled: boolean }] } } = x2js.xml2js(xml)
+    for (const x of _json["filters"]["item"]) {
+      FilterRule.push({
+        id: 0,
+        mid: 0,
+        type: 1,
+        filter: x["__text"].replace("r=", ""),
+        comment: "",
+        ctime: 0,
+        mtime: 0
+      })
+    }
+    return FilterRule
+  },
+  xml: (Rule: FilterRule, Danmaku_xml: string): string => {
+    return json2xml.main(Filter.json.main(Rule, xml2json.main(Danmaku_xml)))
+  },
+  json: {
+    main: (Rules: FilterRule, Danmaku_json: string): string => {
+      const danmaku_json = JSON.parse(Danmaku_json)
+      let _json = danmaku_json
+      let dans: Array<{
+        "_p": string,
+        "__text": string
+      }> = danmaku_json["i"]["d"]
+      for (const rule of Rules) {
+        for (const i in dans) {
+          const dan_all = dans[Number(i)]
+          const dan_mes = dan_all["__text"]
+          if (dan_mes.match(new RegExp(rule["filter"]))) {
+            delete dans[i]
+          }
+        }
+      }
+      const dan: Array<{
+        "_p": string,
+        "__text": string
+      }> | undefined = dans
+      _json["i"]["d"] = dan.filter(res => { return res != undefined })
+      return JSON.stringify(_json)
+    }
   }
 }

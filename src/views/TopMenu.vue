@@ -8,6 +8,7 @@ const activeIndex = ref("/");
     <el-menu-item index="/">首页</el-menu-item>
     <el-menu-item index="/Dan2json">XML &lt;=> JSON</el-menu-item>
     <el-menu-item index="/Dan2ass">XML/JSON => ASS</el-menu-item>
+    <el-menu-item index="/DanFilter">弹幕过滤</el-menu-item>
     <el-menu-item index="/about">关于</el-menu-item>
   </el-menu>
 </template>
