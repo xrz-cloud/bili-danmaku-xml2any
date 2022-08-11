@@ -20,6 +20,21 @@ const router = createRouter({
       component: () => import('@/views/Dan2assView.vue')
     },
     {
+      path: '/DanFilter',
+      name: 'DanFilter',
+      component: () => import('@/views/DanFilter.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('@/views/DanFilter/0.vue')
+        },
+        {
+          path: ':step',
+          component: () => import('@/views/DanFilter/0.vue')
+        }
+      ]
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
