@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 defineProps<{
-  step: Number;
+  step: number;
 }>();
 </script>
 <template>
