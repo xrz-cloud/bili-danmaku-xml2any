@@ -66,7 +66,7 @@ export const xml2json = {
       DIC['data'].push({
         text: x['__text'],
         time: parseFloat(p_arr[0]),
-        color: (parseInt(p_arr[3])).toString(16),
+        color: "#" + (parseInt(p_arr[3])).toString(16),
         border: false,
         mode: TYPE
       })
