@@ -1,6 +1,6 @@
 import X2JS from "x2js";
 const x2js = new X2JS();
-import { SetConfig } from '@/utils/bilibili_ASS_Danmaku_Downloader.user.js';
+import { SetConfig } from './bilibili_ASS_Danmaku_Downloader.user.js';
 
 interface DIC {
   code: string | number
